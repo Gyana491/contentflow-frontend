@@ -100,14 +100,14 @@ export class ApiService {
     return this.request<T>(endpoint, { method: 'GET' })
   }
 
-  static async post<T>(endpoint: string, data?: Record<string, unknown>): Promise<T> {
+  static async post<T>(endpoint: string, data?: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: data ? JSON.stringify(data) : undefined,
     })
   }
 
-  static async put<T>(endpoint: string, data?: Record<string, unknown>): Promise<T> {
+  static async put<T>(endpoint: string, data?: unknown): Promise<T> {
     return this.request<T>(endpoint, {
       method: 'PUT',
       body: data ? JSON.stringify(data) : undefined,

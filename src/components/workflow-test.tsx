@@ -106,28 +106,28 @@ export function WorkflowTest() {
             
             {testResult.success && testResult.data && (
               <div className="mt-3 space-y-2">
-                <div>
-                  <span className="text-xs font-medium text-gray-600">Topic:</span>
-                  <p className="text-sm">{testResult.data.topic}</p>
-                </div>
-                <div>
-                  <span className="text-xs font-medium text-gray-600">Post Preview:</span>
-                  <p className="text-sm text-gray-700 line-clamp-3">
-                    {testResult.data.linkedinPost}
-                  </p>
-                </div>
-                {testResult.data.hashtags && (
-                  <div>
-                    <span className="text-xs font-medium text-gray-600">Hashtags:</span>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {testResult.data.hashtags.slice(0, 3).map((tag: string, index: number) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                                 <div>
+                   <span className="text-xs font-medium text-gray-600">Topic:</span>
+                   <p className="text-sm">{String(testResult.data.topic || '')}</p>
+                 </div>
+                 <div>
+                   <span className="text-xs font-medium text-gray-600">Post Preview:</span>
+                   <p className="text-sm text-gray-700 line-clamp-3">
+                     {String(testResult.data.linkedinPost || '')}
+                   </p>
+                 </div>
+                                 {Array.isArray(testResult.data.hashtags) && testResult.data.hashtags.length > 0 && (
+                   <div>
+                     <span className="text-xs font-medium text-gray-600">Hashtags:</span>
+                     <div className="flex flex-wrap gap-1 mt-1">
+                       {testResult.data.hashtags.slice(0, 3).map((tag: unknown, index: number) => (
+                         <Badge key={index} variant="secondary" className="text-xs">
+                           {String(tag)}
+                         </Badge>
+                       ))}
+                     </div>
+                   </div>
+                 )}
               </div>
             )}
           </div>

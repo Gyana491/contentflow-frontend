@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -24,7 +24,7 @@ interface LinkedInProfile {
   email?: string
 }
 
-export default function LinkedInCallback() {
+function LinkedInCallbackContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user, isAuthenticated } = useAuthStore()
@@ -246,5 +246,31 @@ export default function LinkedInCallback() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+export default function LinkedInCallback() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="flex justify-center mb-4">
+              <Linkedin className="h-12 w-12 text-blue-600" />
+            </div>
+            <CardTitle>LinkedIn Connection</CardTitle>
+            <CardDescription>Loading...</CardDescription>
+          </CardHeader>
+          <CardContent className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+            <p className="text-sm text-gray-600">
+              Please wait...
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    }>
+      <LinkedInCallbackContent />
+    </Suspense>
   )
 } 
